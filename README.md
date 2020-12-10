@@ -9,6 +9,8 @@ We provide four repositories to experiment with different tasks and datasets.
 
 3. [classification_for_cifar10](classification_for_cifar10) is our own repository for image classification on CIFAR10.
 
+Our implementation of classification is in https://github.com/lyxzzz/PWSConv
+
 ## Results
 |Structure | Backbone | Head | Methods | Pretrained  | Schedule | mAP BBOX | mAP Mask |
 |  ----  |  ----  | ----  | ----  | :----: | :----: | :----: | :----: |
