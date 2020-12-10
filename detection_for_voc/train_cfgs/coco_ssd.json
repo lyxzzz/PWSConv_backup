@@ -1,0 +1,107 @@
+{
+    "gpuid":1,
+    "train_parameters":{
+        "optimizer":{
+            "type":"Momentum",
+            "momentum":0.9
+        },   
+
+        "max_epochs":300,
+        "decay_epoch":[120, 200, 260],
+  
+        "learning_rate":[1e-3, 1e-4, 1e-5, 1e-6],
+        "aug_epochs":0,
+
+        "warmup_epoch":0,
+        "warmup_init":5e-4,
+        "print_each_epoch":10,
+
+        "logs_path":"logs/ssd",
+        "ckpt_name":"ssd",
+        "ckpt_path":"checkpoints",
+        "save_epochs":[-10],
+        "max_to_keep":40,
+
+
+        "checkpoint_exclude_scopes":null,
+        "pretrained_model_path":null,
+        
+        "freezen_list":null,
+
+        "train_batch_nums":16,
+        "train_thread_nums":16,
+        "train_queue_size":256
+    },
+    "test_parameters":{
+        "matching_threhold":0.5
+    },
+    "restore_parameters":{
+        "restore":false,
+        "restore_epoch":0,
+        "reset_learning_rate":false,
+        "learning_rate":4e-4
+    },
+    "dataset":{
+        "train":["COCO"]
+    },
+
+    "background_label":0,
+    "network":{
+        "weight_decay":0.0005,
+        "dropout_keep_prob":0.5,
+        "norm_func":"BatchNorm",
+        "batch_norm":{
+            "decay":0.997,
+            "epsilon":0.001
+        },
+        "header_norm":true,
+        "backbone_norm":true,
+        "conv_type":"PWS",
+        "unbalance_multiplier":1.0,
+        "unbalance_norm":true,
+        "unbalance_point":1.0
+    },
+    "backbone":{
+        "type":"SSD"
+    },
+    "header":{
+        "type":"SSD",
+        "last_layer_norm":"LayerNorm",
+        "stop_gradient":true
+    },
+    "assigner":{
+        "positive_threshold":0.5,
+        "negative_threshold":0.4
+    },
+    "losses":{
+        "type":"NewSSD",
+        "pos_label_smoothing":0.0,
+        "neg_label_smoothing":0.0
+    },
+    "postprocessing":{
+        "type":"fastnms",
+        "select_threshold":0.01,
+        "nms_threshold":0.5,
+        "top_k":200,
+        "keep_top_k":100
+    },
+    "augmentation":{
+        "size":[320, 320],
+        "parameters":{},
+        "dataset_distribution":{
+            "mean":[123.675, 116.28, 103.53],
+            "var":[58.395, 57.12, 57.375]
+        }
+    },
+    "anchors":{
+        "type":"fpn",
+        "anchor_scale":4,
+        "scales":[0.0, 1.0, 2.0],
+        "ratios":[[1.0, 1.0], [1.4, 0.7], [0.7, 1.4]],
+        "feat_layers":["block4", "block5", "block6", "block7", "block8"],
+        "feat_shapes":[[40,40], [20,20], [10,10], [5,5], [3, 3]],
+        "anchor_steps":[8, 16, 32, 64, 128],
+        "anchor_offset":0.5,
+        "prior_scaling":[0.1, 0.1, 0.2, 0.2]
+    }
+}

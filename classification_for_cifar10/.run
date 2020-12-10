@@ -1,0 +1,60 @@
+#!/bin/bash
+. ./utils.sh
+runmodel(){
+    python train.py \
+        --model=$train_model --ckpt_name=$ckpt_name --model_abstract=$expname \
+        --conv_type=$conv_type --norm_type=$norm_type --pwsepsilon=$pwsepsilon \
+        --learning_rate=$learning_rate --batch_size=$batch_size --memory_fraction=$memory_fraction --gpuid=$gpuid
+
+    if [ "$TEST" == "n" ]
+    then
+        echo "NOT TEST"
+    else
+        python test.py \
+            --model=$test_model --ckpt_path=checkpoints --ckpt_name=${ckpt_name}_last.ckpt --postprocessing=ssdnms --save_file=result/result.txt --exp_name=${ziptime}_${expname} \
+            --conv_type=$conv_type --norm_type=$norm_type --pwsepsilon=$pwsepsilon --gpuid=$gpuid
+        
+        zipname=historyresult/${ziptime}_${exp}_${expname}.zip
+        zip -r $zipname result/result.txt logs checkpoints/*_last.ckpt*
+    fi
+
+    let "exp = $exp + 1"
+    remakedir logs
+}
+
+ckpt_name=vgg
+gpuid=0
+memory_fraction=0.99
+exp=0
+ziptime=`date +%Y%m%d%H`
+
+read -p "should rm[y/n](default n):" RM
+read -p "should test[y/n](default y):" TEST
+echo --------------------------------------------
+
+configconv $ziptime $RM
+
+# conv_type:Normal WN PWS
+# norm_type:None BatchNorm LayerNorm InstanceNorm SwitchNorm
+# # ###########################start###########################
+# pwsepsilon=0.001
+# train_model=vgg
+# test_model=vgg
+# expname=PWS
+# conv_type=PWS
+# norm_type=None
+# batch_size=128
+# learning_rate=10.0
+# runmodel
+
+# ###########################start###########################
+pwsepsilon=0.001
+train_model=cifar_vgg
+test_model=cifar_vgg
+expname=PWS
+conv_type=PWS
+norm_type=None
+batch_size=256
+learning_rate=10.0
+runmodel
+

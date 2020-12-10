@@ -1,0 +1,51 @@
+{
+    "gpuid":0,
+    "test_parameters":{
+        "ckpt_path":"checkpoints/ssd/ssd_300_vgg",
+        "ckpt_name":"ssd_300_vgg.ckpt",
+        "ckpt_path":"checkpoints/tpn",
+        "ckpt_name":"tpn_last.ckpt",
+
+        "write_to_file":false,
+        "anno_path":"anno_test/ssd",
+        "matching_threhold":0.5,
+        "test_batch_nums":32,
+        "test_thread_nums":16,
+        "test_queue_size":16
+    },
+    "dataset":{
+        "test":["VOC07"]
+    },
+    "default_network_cfgs":"TPN",
+    "anchor_type":"TPN",
+
+    "network":{
+        "weight_decay":0.0005,
+        "dropout_keep_prob":0.5,
+        "norm_func":"BatchNorm",
+        "batch_norm":{
+            "decay":0.997,
+            "epsilon":0.001
+        },
+        "header_norm":false,
+        "backbone_norm":false,
+        "unbalance_multiplier":1.0,
+        "unbalance_norm":true,
+        "unbalance_point":1.0
+    },
+
+    "backbone":{
+        "type":"New"
+    },
+    "header":{
+        "type":"TPN",
+        "last_layer_norm":"LayerNorm"
+    },
+    "postprocessing":{
+        "type":"ssdnms",
+        "select_threshold":0.01,
+        "nms_threshold":0.45,
+        "top_k":400,
+        "keep_top_k":200
+    }
+}

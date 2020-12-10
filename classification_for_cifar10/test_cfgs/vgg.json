@@ -1,0 +1,46 @@
+{
+    "gpuid":0,
+    "test_parameters":{
+        "ckpt_path":"checkpoints",
+        "ckpt_name":"tpn_last.ckpt",
+
+        "write_to_file":false,
+        "anno_path":"anno_test/ssd",
+        "matching_threhold":0.5,
+        "test_batch_nums":256,
+        "test_thread_nums":16,
+        "test_queue_size":16
+    },
+    "dataset":{
+        "test":["ImageNet"]
+    },
+    "default_network_cfgs":"cls",
+
+    "network":{
+        "weight_decay":0.0005,
+        "dropout_keep_prob":0.5,
+        "norm_func":"BatchNorm",
+        "batch_norm":{
+            "decay":0.997,
+            "epsilon":0.001
+        },
+        "header_norm":true,
+        "backbone_norm":true,
+        "conv_type":"PWS",
+        "pwsepsilon":0.001
+    },
+
+    "backbone":{
+        "type":"VGG"
+    },
+
+    "augmentation":{
+        "size":[224, 224],
+        "type":"ImageNet",
+        "parameters":{},
+        "dataset_distribution":{
+            "mean":[123.675, 116.28, 103.53],
+            "var":[58.395, 57.12, 57.375]
+        }
+    }
+}

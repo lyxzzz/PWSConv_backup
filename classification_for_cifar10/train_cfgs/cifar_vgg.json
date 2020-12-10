@@ -1,0 +1,74 @@
+{
+    "gpuid":0,
+    "train_parameters":{
+        "optimizer":{
+            "type":"Momentum",
+            "momentum":0.9
+        },   
+
+        "max_epochs":200,
+        "decay_epoch":[100, 150, 180],
+  
+        "learning_rate":[1e-2, 1e-3, 1e-4, 1e-5],
+
+        "warmup_epoch":0,
+        "warmup_init":5e-4,
+        "print_each_epoch":100,
+
+        "logs_path":"logs/ssd",
+        "ckpt_name":"ssd",
+        "ckpt_path":"checkpoints",
+        "save_epochs":[-10],
+        "max_to_keep":40,
+
+
+        "checkpoint_exclude_scopes":null,
+        "pretrained_model_path":null,
+        
+        "freezen_list":null,
+
+        "train_batch_nums":128,
+        "train_thread_nums":24,
+        "train_queue_size":50
+    },
+    "restore_parameters":{
+        "restore":false,
+        "restore_epoch":0,
+        "reset_learning_rate":false,
+        "learning_rate":4e-4
+    },
+    "dataset":{
+        "train":["CIFAR10"]
+    },
+    "default_network_cfgs":"cls",
+
+    "network":{
+        "weight_decay":0.0005,
+        "dropout_keep_prob":0.5,
+        "norm_func":"BatchNorm",
+        "batch_norm":{
+            "decay":0.997,
+            "epsilon":0.001
+        },
+        "header_norm":true,
+        "backbone_norm":true,
+        "conv_type":"PWS",
+        "pwsepsilon":0.001
+    },
+    "backbone":{
+        "type":"cifar_VGG"
+    },
+    "losses":{
+        "type":"softmax"
+    },
+
+    "augmentation":{
+        "size":[32, 32],
+        "type":"cifar10",
+        "parameters":{},
+        "dataset_distribution":{
+            "mean":[125.0, 122.0, 113.0],
+            "var":[51.0, 52.0, 51.0]
+        }
+    }
+}

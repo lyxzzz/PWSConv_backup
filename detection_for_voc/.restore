@@ -1,0 +1,48 @@
+#!/bin/bash
+# python finetune.py --model=ssd2
+# python finetune.py --model=ssd
+
+last_norm=None
+###########################start###########################
+python train.py --model=tpn_restore --ckpt_name=groupnorm --last_layer_norm=$last_norm
+
+python test.py --model=tpn --ckpt_path=checkpoints/tpn --ckpt_name=groupnorm_last.ckpt\
+ --postprocessing=ssdnms --save_file=result/result.txt --last_layer_norm=$last_norm
+
+zip -r result/single_record.zip result/result.txt logs
+# python train.py --model=tpn
+
+# python test.py --model=tpn --ckpt_path=checkpoints/tpn --postprocessing=fastnms > result.txt
+# python test.py --model=tpn --ckpt_path=checkpoints/tpn --postprocessing=ssdnms >> result.txt
+
+# python finetune.py --model=tpn
+
+# python test.py --model=tpn --ckpt_path=checkpoints/tpnft3 --postprocessing=fastnms >> result.txt
+# python test.py --model=tpn --ckpt_path=checkpoints/tpnft3 --postprocessing=ssdnms >> result.txt
+
+# python finetune.py --model=tpn_freezen
+
+# python test.py --model=tpn --ckpt_path=checkpoints/tpnft3 --postprocessing=fastnms >> result_freezen.txt
+# python test.py --model=tpn --ckpt_path=checkpoints/tpnft3 --postprocessing=ssdnms >> result_freezen.txt
+
+
+# echo "------------------------------------fastnms-------------------------------------------"
+# echo "------------------------------------fastnms-------------------------------------------"
+# echo "------------------------------------fastnms-------------------------------------------"
+# echo "------------------------------------fastnms-------------------------------------------"
+# echo "------------------------------------fastnms-------------------------------------------"
+
+# echo "------------------------------------go to ssd2ft1-------------------------------------------"
+# echo "------------------------------------go to ssd2ft1-------------------------------------------"
+# echo "------------------------------------go to ssd2ft1-------------------------------------------"
+# python test.py --ckpt_path=checkpoints/ssd2ft1 --postprocessing=fastnms
+# echo "------------------------------------ssdnms-------------------------------------------"
+# echo "------------------------------------ssdnms-------------------------------------------"
+# echo "------------------------------------ssdnms-------------------------------------------"
+# echo "------------------------------------ssdnms-------------------------------------------"
+# echo "------------------------------------ssdnms-------------------------------------------"
+# python test.py --ckpt_path=checkpoints/ssdft1 --postprocessing=ssdnms
+# echo "------------------------------------go to ssd2ft1-------------------------------------------"
+# echo "------------------------------------go to ssd2ft1-------------------------------------------"
+# echo "------------------------------------go to ssd2ft1-------------------------------------------"
+# python test.py --ckpt_path=checkpoints/ssd2ft1 --postprocessing=ssdnms

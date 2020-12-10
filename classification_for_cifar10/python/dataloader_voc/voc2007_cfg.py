@@ -1,0 +1,28 @@
+PHOTO_NUMS = {
+    'train': 5011,
+    'test': 4952,
+}
+TRAIN_STATISTICS = {
+    'none': (0, 0),
+    'aeroplane': (238, 306),
+    'bicycle': (243, 353),
+    'bird': (330, 486),
+    'boat': (181, 290),
+    'bottle': (244, 505),
+    'bus': (186, 229),
+    'car': (713, 1250),
+    'cat': (337, 376),
+    'chair': (445, 798),
+    'cow': (141, 259),
+    'diningtable': (200, 215),
+    'dog': (421, 510),
+    'horse': (287, 362),
+    'motorbike': (245, 339),
+    'person': (2008, 4690),
+    'pottedplant': (245, 514),
+    'sheep': (96, 257),
+    'sofa': (229, 248),
+    'train': (261, 297),
+    'tvmonitor': (256, 324),
+    'total': (5011, 12608),
+}
