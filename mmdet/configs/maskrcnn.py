@@ -68,7 +68,7 @@ pws_cfg=dict(equiv=True, sigmoid=False, gamma=1e-1, initalpha=True, mode="fan_in
 # model settings
 model = dict(
     type='MaskRCNN',
-    pretrained=None,
+    pretrained='epoch_100.pth',
     backbone=dict(
         type='ResNet',
         depth=50,
